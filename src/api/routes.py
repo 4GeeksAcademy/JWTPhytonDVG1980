@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Company
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -65,8 +65,73 @@ def validate_user():
         return {'message': 'Unauthorized'}, 401
     return user.serialize(), 200
     
-    
 
+@api.route('/companies', methods=['GET'])
+def get_companies():
+    """Obtiene todas las compañías"""
+    companies = Company.query.all()
+    companies_serialized = [company.serialize() for company in companies]
+    return jsonify(companies_serialized), 200
+
+
+@api.route('/companies/<int:company_id>', methods=['GET'])
+def get_company(company_id):
+    """Obtiene una compañía por ID"""
+    company = Company.query.get(company_id)
+    if company is None:
+        return jsonify({"message": "Company not found"}), 404
+    return jsonify(company.serialize()), 200
+
+
+@api.route('/companies', methods=['POST'])
+def create_company():
+    """Crea una nueva compañía"""
+    body = request.get_json()
+    nif = body.get('nif', None)
+    name = body.get('name', None)
+    adress = body.get('adress', None)
+    
+    if not nif or not name or not adress:
+        return jsonify({"message": "Missing required fields"}), 400
+    
+    # Verificar si ya existe una compañía con el mismo NIF
+    existing_company = Company.query.filter_by(nif=nif).first()
+    if existing_company:
+        return jsonify({"message": "Company with this NIF already exists"}), 400
+
+    company = Company(nif=nif, name=name, adress=adress)
+    db.session.add(company)
+    db.session.commit()
+    return jsonify(company.serialize()), 201
+
+
+@api.route('/companies/<int:company_id>', methods=['PUT'])
+def update_company(company_id):
+    """Actualiza los datos de una compañía existente"""
+    body = request.get_json()
+    company = Company.query.get(company_id)
+    
+    if company is None:
+        return jsonify({"message": "Company not found"}), 404
+
+    company.nif = body.get('nif', company.nif)
+    company.name = body.get('name', company.name)
+    company.adress = body.get('adress', company.adress)
+
+    db.session.commit()
+    return jsonify(company.serialize()), 200
+
+
+@api.route('/companies/<int:company_id>', methods=['DELETE'])
+def delete_company(company_id):
+    """Elimina una compañía por ID"""
+    company = Company.query.get(company_id)
+    if company is None:
+        return jsonify({"message": "Company not found"}), 404
+
+    db.session.delete(company)
+    db.session.commit()
+    return jsonify({"message": f"Company {company_id} deleted"}), 200
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 

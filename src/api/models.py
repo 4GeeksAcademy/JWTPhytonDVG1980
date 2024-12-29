@@ -25,3 +25,31 @@ class User(db.Model):
             "is_active" : True
             # do not serialize the password, its a security breach
         }
+
+class Company(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nif = db.Column(db.String(20), unique=True, nullable=False)
+    name = db.Column(db.String(120), nullable=False)
+    address = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    web = db.Column(db.String(120), unique=True, nullable=True)
+    certificate = db.Column(db.String(120), nullable=True)
+
+
+    def __init__(self,nif, name, adress):
+        self.nif = nif
+        self.name = name
+        self.adress = adress
+        
+
+    def __repr__(self):
+        return f'<Company {self.name}>'
+
+    def serialize(self):
+        return {
+            "nif": self.nif,
+            "name": self.name,
+            "adress": self.adress,
+            
+        }
