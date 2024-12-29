@@ -37,10 +37,12 @@ class Company(db.Model):
     certificate = db.Column(db.String(120), nullable=True)
 
 
-    def __init__(self,nif, name, adress):
+    def __init__(self,nif, name, address,email,description):
         self.nif = nif
         self.name = name
-        self.adress = adress
+        self.address = address
+        self.email = email
+        self.description = description
         
 
     def __repr__(self):
@@ -50,6 +52,8 @@ class Company(db.Model):
         return {
             "nif": self.nif,
             "name": self.name,
-            "adress": self.adress,
+            "address": self.address,
+            "email": self.email,
+            "description": self.description
             
         }

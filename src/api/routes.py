@@ -89,9 +89,9 @@ def create_company():
     body = request.get_json()
     nif = body.get('nif', None)
     name = body.get('name', None)
-    adress = body.get('adress', None)
+    address = body.get('address', None)
     
-    if not nif or not name or not adress:
+    if not nif or not name or not address:
         return jsonify({"message": "Missing required fields"}), 400
     
     # Verificar si ya existe una compañía con el mismo NIF
@@ -116,7 +116,7 @@ def update_company(company_id):
 
     company.nif = body.get('nif', company.nif)
     company.name = body.get('name', company.name)
-    company.adress = body.get('adress', company.adress)
+    company.address = body.get('address', company.adress)
 
     db.session.commit()
     return jsonify(company.serialize()), 200
