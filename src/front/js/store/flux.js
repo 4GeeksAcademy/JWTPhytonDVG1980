@@ -28,7 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		  localStorage.removeItem("token");
 		  setStore({ ...store, token: null, profile: null });
 		},
-		loginUser: async ({ email, password }) => {
+		loginUser: async ({ email, contraseña }) => {
 		  try {
 			// fetching data from the backend
 			const resp = await fetch(process.env.BACKEND_URL + "/api/token", {
@@ -36,7 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  headers: {
 				"Content-Type": "application/json",
 			  },
-			  body: JSON.stringify({ email, password }),
+			  body: JSON.stringify({ email, contraseña }),
 			});
 			const data = await resp.json();
 			console.log(data);

@@ -8,9 +8,9 @@ const Login = () => {
   const { store, actions } = useContext(Context);
   const [isShow, setIsShown] = useState(false);
   const [user, setUser] = useState({
-    name: "",
+    nombre: "",
     email: "",
-    password: "",
+    contraseña: "",
     password_check: "",
   });
 
@@ -26,24 +26,24 @@ const Login = () => {
     store.token && navigate("/private");
     return () => {
       setUser({
-        name: "",
+        nombre: "",
         email: "",
-        password: "",
+        contraseña: "",
         password_check: "",
       });
     };
   }, [store.token, navigate]);
 
   const registerUser = async () => {
-    if (user.password === user.password_check && user.password !== "") {
+    if (user.contraseña === user.password_check && user.contraseña !== "") {
       const createUser = await actions.createUser(user);
       if (createUser) {
         toggleModal("User was created successfully!");
         setUser({
           ...user,
-          name: "",
+          nombre: "",
           email: "",
-          password: "",
+          contraseña: "",
           password_check: "",
         });
         setIsShown(!isShow);
@@ -52,7 +52,7 @@ const Login = () => {
       }
     } else {
       toggleModal("Passwords do not match!");
-      setUser({ ...user, password: "", password_check: "" });
+      setUser({ ...user, contraseña: "", password_check: "" });
     }
   };
 
@@ -65,7 +65,7 @@ const Login = () => {
       toggleModal("Unable to login. Please check your credentials.");
       setUser({
         ...user,
-        password: "",
+        contraseña: "",
       });
     }
   };
@@ -79,10 +79,10 @@ const Login = () => {
             <div className="input-field">
               <input
                 type="text"
-                value={user.name}
+                value={user.nombre}
                 placeholder="Name"
                 autoComplete="off"
-                onChange={(e) => setUser({ ...user, name: e.target.value })}
+                onChange={(e) => setUser({ ...user, nombre: e.target.value })}
               />
             </div>
           )}
@@ -98,10 +98,10 @@ const Login = () => {
           <div className="input-field">
             <input
               type="password"
-              value={user.password}
+              value={user.contraseña}
               placeholder="Password"
               autoComplete="new-password"
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
+              onChange={(e) => setUser({ ...user, contraseña: e.target.value })}
             />
           </div>
           {isShow && (
