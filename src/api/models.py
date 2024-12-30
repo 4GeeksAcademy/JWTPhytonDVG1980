@@ -34,6 +34,7 @@ class Company(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nif = db.Column(db.String(20), unique=True, nullable=False)
     name = db.Column(db.String(120), nullable=False)
+    sector = db.Column(db.Text, nullable=False)
     address = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     description = db.Column(db.Text, nullable=False)
@@ -41,9 +42,10 @@ class Company(db.Model):
     certificate = db.Column(db.String(120), nullable=True)
 
 
-    def __init__(self,nif, name, address,email,description,web,certificate):
+    def __init__(self,nif,name,sector,address,email,description,web,certificate):
         self.nif = nif
         self.name = name
+        self.sector = sector
         self.address = address
         self.email = email
         self.description = description
@@ -58,6 +60,7 @@ class Company(db.Model):
         return {
             "nif": self.nif,
             "name": self.name,
+            "sector": self.sector,
             "address": self.address,
             "email": self.email,
             "description": self.description,
@@ -66,4 +69,4 @@ class Company(db.Model):
             
         }
     
-#**********************************************************************************
+#***********************************FAVORITES***********************************************
