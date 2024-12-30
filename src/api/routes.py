@@ -90,21 +90,34 @@ def get_company(company_id):
 def create_company():
     """Crea una nueva compañía"""
     body = request.get_json()
+    
     nif = body.get('nif', None)
     name = body.get('name', None)
     sector = body.get('sector', None)
     address = body.get('address', None)
-   
+    email = body.get('email', None)
+    description = body.get('description', None)
+    web = body.get('web', None)
+    certificate = body.get('certificate', None)
     
-    if not nif or not name or not address:
+    if not all([nif, name, sector, address, email, description, web]):
         return jsonify({"message": "Missing required fields"}), 400
-    
-    # Verificar si ya existe una compañía con el mismo NIF
-    existing_company = Company.query.filter_by(nif=nif).first()
-    if existing_company:
-        return jsonify({"message": "Company with this NIF already exists"}), 400
 
-    company = Company(nif=nif, name=name, adress=adress)
+    # Verificar si ya existe una compañía con el mismo NIF o email
+    if Company.query.filter((Company.nif == nif) | (Company.email == email)).first():
+        return jsonify({"message": "Company with this NIF or email already exists"}), 400
+
+    company = Company(
+        nif=nif,
+        name=name,
+        sector=sector,
+        address=address,
+        email=email,
+        description=description,
+        web=web,
+        certificate=certificate
+    )
+    
     db.session.add(company)
     db.session.commit()
     return jsonify(company.serialize()), 201
@@ -121,8 +134,12 @@ def update_company(company_id):
 
     company.nif = body.get('nif', company.nif)
     company.name = body.get('name', company.name)
-    company.address = body.get('address', company.adress)
-    
+    company.sector = body.get('sector', company.sector)
+    company.address = body.get('address', company.address)
+    company.email = body.get('email', company.email)
+    company.description = body.get('description', company.description)
+    company.web = body.get('web', company.web)
+    company.certificate = body.get('certificate', company.certificate)
 
     db.session.commit()
     return jsonify(company.serialize()), 200
@@ -138,6 +155,7 @@ def delete_company(company_id):
     db.session.delete(company)
     db.session.commit()
     return jsonify({"message": f"Company {company_id} deleted"}), 200
+
 
 # *************************************FAVORITES******************************************
 
