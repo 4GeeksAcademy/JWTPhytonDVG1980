@@ -24,16 +24,16 @@ api = Blueprint('api', __name__)
 @api.route('/register', methods=['POST'])
 def register_user():
     body = request.get_json()
-    name = body.get('name', None)
+    nombre = body.get('nombre', None)
     email = body.get('email', None)
-    password = body.get('password', None)
-    if name is None or email is None or password is None:
+    contraseña = body.get('contraseña', None)
+    if nombre is None or email is None or contraseña is None:
         return {'message': 'Missing arguments'}      
-    bpassword = bytes(password, 'utf-8')
+    bpassword = bytes(contraseña, 'utf-8')
     salt = bcrypt.gensalt(14)
     hashed_password = bcrypt.hashpw(password=bpassword, salt=salt)       
-    user = User(name, email,hashed_password.decode('utf-8'))    
-    #return {'message': f'name: {user.name} email: {user.email} password: {password}'}
+    user = User(nombre, email, hashed_password.decode('utf-8'))    
+    #return {'message': f'nombre: {user.nombre} email: {user.email} contraseña: {contraseña}'}
     db.session.add(user)
     db.session.commit()
     return {'message': f'User {user.email} was created'}
@@ -42,19 +42,19 @@ def register_user():
 def create_token():
     body = request.get_json()
     email = body.get('email', None)
-    password = body.get('password', None)
-    if password is None or email is None:
-        return {'message': f'missing parameters {email} {password}', 'authorize': False}, 400
+    contraseña = body.get('contraseña', None)
+    if contraseña is None or email is None:
+        return {'message': f'missing parameters {email} {contraseña}', 'authorize': False}, 400
     if check(email) is not True:
         return {'message': 'email is not valid', 'authorize': False}, 400
     user = User.query.filter_by(email=email).one_or_none()    
     if user is None:
         return {'mesasge': 'User doesnt exist', 'authorize': False}, 400
-    password_byte =bytes(password, 'utf-8')
-    if bcrypt.checkpw(password_byte, user.password.encode('utf-8')):
+    password_byte =bytes(contraseña, 'utf-8')
+    if bcrypt.checkpw(password_byte, user.contraseña.encode('utf-8')):
         return {'token': create_access_token(identity = email), 'authorize': True},200
     return {'message': 'Unauthorized', 'authorize': False}, 401
-       
+
 
 # *************************************USER********************************************
 
@@ -92,15 +92,15 @@ def create_company():
     body = request.get_json()
     
     nif = body.get('nif', None)
-    name = body.get('name', None)
+    nombre = body.get('nombre', None)
     sector = body.get('sector', None)
-    address = body.get('address', None)
+    direccion = body.get('direccion', None)
     email = body.get('email', None)
-    description = body.get('description', None)
+    descripcion = body.get('descripcion', None)
     web = body.get('web', None)
-    certificate = body.get('certificate', None)
+    certificado = body.get('certificado', None)
     
-    if not all([nif, name, sector, address, email, description, web]):
+    if not all([nif, nombre, sector, direccion, email, descripcion, web]):
         return jsonify({"message": "Missing required fields"}), 400
 
     # Verificar si ya existe una compañía con el mismo NIF o email
@@ -109,13 +109,13 @@ def create_company():
 
     company = Company(
         nif=nif,
-        name=name,
+        nombre=nombre,
         sector=sector,
-        address=address,
+        direccion=direccion,
         email=email,
-        description=description,
+        descripcion=descripcion,
         web=web,
-        certificate=certificate
+        certificado=certificado
     )
     
     db.session.add(company)
@@ -133,13 +133,13 @@ def update_company(company_id):
         return jsonify({"message": "Company not found"}), 404
 
     company.nif = body.get('nif', company.nif)
-    company.name = body.get('name', company.name)
+    company.nombre = body.get('nombre', company.nombre)
     company.sector = body.get('sector', company.sector)
-    company.address = body.get('address', company.address)
+    company.direccion = body.get('direccion', company.direccion)
     company.email = body.get('email', company.email)
-    company.description = body.get('description', company.description)
+    company.descripcion = body.get('descripcion', company.descripcion)
     company.web = body.get('web', company.web)
-    company.certificate = body.get('certificate', company.certificate)
+    company.certificado = body.get('certificado', company.certificado)
 
     db.session.commit()
     return jsonify(company.serialize()), 200
@@ -155,20 +155,3 @@ def delete_company(company_id):
     db.session.delete(company)
     db.session.commit()
     return jsonify({"message": f"Company {company_id} deleted"}), 200
-
-
-# *************************************FAVORITES******************************************
-
-# **************************************RATINGS*******************************************
-
-# ************************************TYPESERVICES****************************************
-
-
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200

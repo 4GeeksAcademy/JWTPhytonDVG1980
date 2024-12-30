@@ -6,25 +6,25 @@ db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=False, nullable=False)
+    nombre = db.Column(db.String(120), unique=False, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(200), unique=False, nullable=False)
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    contraseña = db.Column(db.String(200), unique=False, nullable=False)
+    esta_activo = db.Column(db.Boolean(), unique=False, nullable=False)
 
-    def __init__(self,name, email, password):
-        self.name = name
+    def __init__(self, nombre, email, contraseña):
+        self.nombre = nombre
         self.email = email
-        self.password = password
-        self.is_active = True
+        self.contraseña = contraseña
+        self.esta_activo = True
 
     def __repr__(self):
         return f'<User {self.email}>'
 
     def serialize(self):
         return {
-            "name": self.name,
+            "nombre": self.nombre,
             "email": self.email,
-            "is_active" : True
+            "esta_activo": True
             # do not serialize the password, its a security breach
         }
     
@@ -33,40 +33,38 @@ class User(db.Model):
 class Company(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nif = db.Column(db.String(20), unique=True, nullable=False)
-    name = db.Column(db.String(120), nullable=False)
+    nombre = db.Column(db.String(120), nullable=False)
     sector = db.Column(db.Text, nullable=False)
-    address = db.Column(db.String(255), nullable=False)
+    direccion = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    description = db.Column(db.Text, nullable=False)
+    descripcion = db.Column(db.Text, nullable=False)
     web = db.Column(db.String(120), unique=True, nullable=False)
-    certificate = db.Column(db.String(120), nullable=True)
+    certificado = db.Column(db.String(120), nullable=True)
 
 
-    def __init__(self,nif,name,sector,address,email,description,web,certificate):
+    def __init__(self,nif,nombre,sector,direccion,email,descripcion,web,certificado):
         self.nif = nif
-        self.name = name
+        self.nombre = nombre
         self.sector = sector
-        self.address = address
+        self.direccion = direccion
         self.email = email
-        self.description = description
+        self.descripcion = descripcion
         self.web = web
-        self.certificate = certificate
-        
+        self.certificado = certificado
 
     def __repr__(self):
-        return f'<Company {self.name}>'
+        return f'<Company {self.nombre}>'
 
     def serialize(self):
         return {
             "nif": self.nif,
-            "name": self.name,
+            "nombre": self.nombre,
             "sector": self.sector,
-            "address": self.address,
+            "direccion": self.direccion,
             "email": self.email,
-            "description": self.description,
+            "descripcion": self.descripcion,
             "web": self.web,
-            "certificate": self.certificate,
-            
+            "certificado": self.certificado,
         }
     
 #***********************************FAVORITES***********************************************
