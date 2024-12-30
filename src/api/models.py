@@ -2,6 +2,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+#*******************************************USER***************************************************
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=False, nullable=False)
@@ -25,6 +27,8 @@ class User(db.Model):
             "is_active" : True
             # do not serialize the password, its a security breach
         }
+    
+#*******************************************COMPANY****************************************************
 
 class Company(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,16 +37,18 @@ class Company(db.Model):
     address = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     description = db.Column(db.Text, nullable=False)
-    web = db.Column(db.String(120), unique=True, nullable=True)
+    web = db.Column(db.String(120), unique=True, nullable=False)
     certificate = db.Column(db.String(120), nullable=True)
 
 
-    def __init__(self,nif, name, address,email,description):
+    def __init__(self,nif, name, address,email,description,web,certificate):
         self.nif = nif
         self.name = name
         self.address = address
         self.email = email
         self.description = description
+        self.web = web
+        self.certificate = certificate
         
 
     def __repr__(self):
@@ -54,6 +60,10 @@ class Company(db.Model):
             "name": self.name,
             "address": self.address,
             "email": self.email,
-            "description": self.description
+            "description": self.description,
+            "web": self.web,
+            "certificate": self.certificate,
             
         }
+    
+#**********************************************************************************

@@ -65,6 +65,7 @@ def validate_user():
         return {'message': 'Unauthorized'}, 401
     return user.serialize(), 200
     
+# *********************************************************************************
 
 @api.route('/companies', methods=['GET'])
 def get_companies():
@@ -90,6 +91,7 @@ def create_company():
     nif = body.get('nif', None)
     name = body.get('name', None)
     address = body.get('address', None)
+    email = body.get('email', None)
     
     if not nif or not name or not address:
         return jsonify({"message": "Missing required fields"}), 400
@@ -117,6 +119,7 @@ def update_company(company_id):
     company.nif = body.get('nif', company.nif)
     company.name = body.get('name', company.name)
     company.address = body.get('address', company.adress)
+    company.email = body.get('email', company.email)
 
     db.session.commit()
     return jsonify(company.serialize()), 200
@@ -132,6 +135,12 @@ def delete_company(company_id):
     db.session.delete(company)
     db.session.commit()
     return jsonify({"message": f"Company {company_id} deleted"}), 200
+
+# *********************************************************************************
+
+# *********************************************************************************
+
+
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
