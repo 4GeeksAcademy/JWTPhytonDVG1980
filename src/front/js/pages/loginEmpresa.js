@@ -3,13 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/loginEmpresa.css";
 
-const Login = () => {
+const LoginEmpresa = () => {
   const navigate = useNavigate();
   const { store, actions } = useContext(Context);
   const [isShow, setIsShown] = useState(false);
   const [user, setUser] = useState({
+    nif: "",
     nombre: "",
+    sector: "",
+    direccion: "",
     email: "",
+    descripcion: "",
+    web: "",
     contraseña: "",
     password_check: "",
   });
@@ -26,8 +31,13 @@ const Login = () => {
     store.token && navigate("/private");
     return () => {
       setUser({
+        nif: "",
         nombre: "",
+        sector: "",
+        direccion: "",
         email: "",
+        descripcion: "",
+        web: "",
         contraseña: "",
         password_check: "",
       });
@@ -41,8 +51,13 @@ const Login = () => {
         toggleModal("User was created successfully!");
         setUser({
           ...user,
+          nif: "",
           nombre: "",
+          sector: "",
+          direccion: "",
           email: "",
+          descripcion: "",
+          web: "",
           contraseña: "",
           password_check: "",
         });
@@ -76,15 +91,44 @@ const Login = () => {
         {!isShow ? <h1>Login Empresa</h1> : <h1>Registro Empresa</h1>}
         <div className="content">
           {isShow && (
-            <div className="input-field">
-              <input
-                type="text"
-                value={user.nombre}
-                placeholder="Name"
-                autoComplete="off"
-                onChange={(e) => setUser({ ...user, nombre: e.target.value })}
-              />
-            </div>
+            <>
+              <div className="input-field">
+                <input
+                  type="text"
+                  value={user.nif}
+                  placeholder="NIF"
+                  autoComplete="off"
+                  onChange={(e) => setUser({ ...user, nif: e.target.value })}
+                />
+              </div>
+              <div className="input-field">
+                <input
+                  type="text"
+                  value={user.nombre}
+                  placeholder="Nombre"
+                  autoComplete="off"
+                  onChange={(e) => setUser({ ...user, nombre: e.target.value })}
+                />
+              </div>
+              <div className="input-field">
+                <input
+                  type="text"
+                  value={user.sector}
+                  placeholder="Sector"
+                  autoComplete="off"
+                  onChange={(e) => setUser({ ...user, sector: e.target.value })}
+                />
+              </div>
+              <div className="input-field">
+                <input
+                  type="text"
+                  value={user.direccion}
+                  placeholder="Dirección"
+                  autoComplete="off"
+                  onChange={(e) => setUser({ ...user, direccion: e.target.value })}
+                />
+              </div>
+            </>
           )}
           <div className="input-field">
             <input
@@ -95,11 +139,33 @@ const Login = () => {
               onChange={(e) => setUser({ ...user, email: e.target.value })}
             />
           </div>
+          {isShow && (
+            <>
+              <div className="input-field">
+                <input
+                  type="text"
+                  value={user.descripcion}
+                  placeholder="Descripción"
+                  autoComplete="off"
+                  onChange={(e) => setUser({ ...user, descripcion: e.target.value })}
+                />
+              </div>
+              <div className="input-field">
+                <input
+                  type="url"
+                  value={user.web}
+                  placeholder="Página Web"
+                  autoComplete="off"
+                  onChange={(e) => setUser({ ...user, web: e.target.value })}
+                />
+              </div>
+            </>
+          )}
           <div className="input-field">
             <input
               type="password"
               value={user.contraseña}
-              placeholder="Password"
+              placeholder="Contraseña"
               autoComplete="new-password"
               onChange={(e) => setUser({ ...user, contraseña: e.target.value })}
             />
@@ -109,7 +175,7 @@ const Login = () => {
               <input
                 type="password"
                 value={user.password_check}
-                placeholder="Repeat Password"
+                placeholder="Repetir Contraseña"
                 autoComplete="new-password"
                 onChange={(e) =>
                   setUser({ ...user, password_check: e.target.value })
@@ -186,8 +252,8 @@ const styles = {
     cursor: "pointer",
     fontSize: "14px",
   },
-  };
-  
+};
 
-export default Login;
+
+export default LoginEmpresa;
 
