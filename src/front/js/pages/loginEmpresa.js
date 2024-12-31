@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
-import "../../styles/login.css";
+import "../../styles/loginEmpresa.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -73,7 +73,7 @@ const Login = () => {
   return (
     <div className="login-form">
       <section onSubmit={(e) => e.preventDefault()}>
-        {!isShow ? <h1>Login Usuario</h1> : <h1>Registro Usuario</h1>}
+        {!isShow ? <h1>Login Empresa</h1> : <h1>Registro Empresa</h1>}
         <div className="content">
           {isShow && (
             <div className="input-field">

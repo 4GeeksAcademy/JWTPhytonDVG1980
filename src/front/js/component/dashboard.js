@@ -1,7 +1,7 @@
 import React from "react";
 import "../../styles/dashboard.css"
 
-const Dashboard = ({name}) => {
+const Dashboard = ({nombre}) => {
   return (
     <div className="dashboard">
       <div className="left">
@@ -148,7 +148,7 @@ const Dashboard = ({name}) => {
             </div>
             <div className="profile2">
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxskBELKkcItHXQFVTYI5p3_413uobvl2BHJLEM7PNg4cag9-l6n2mydDwws1CjV0ZTjw&usqp=CAU" />
-              <div className="icon-name5">{name}</div>
+              <div className="icon-name5">{nombre}</div>
             </div>
           </div>
           <hr className="new-hr" />
@@ -295,7 +295,7 @@ const Dashboard = ({name}) => {
               <span className="who">From: </span>ZASf@4GeeksAcademy.com
             </div>
             <div className="message-from">
-              Hola {name}!
+              Hola {nombre}!
               <p>
                 {" "}
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,

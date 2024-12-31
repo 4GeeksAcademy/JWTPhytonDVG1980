@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+import rigoImageUrl from "../../img/LogoCepda.png";
 import "../../styles/home.css";
 
 export const Home = () => {
@@ -8,7 +8,7 @@ export const Home = () => {
 
 	return (
 		<div className="text-center mt-5">
-			<h1>Hola 4Geeks!!</h1>
+			<h1>CEPDA Control Panel</h1>
 			<p>
 				<img src={rigoImageUrl} />
 			</p>
