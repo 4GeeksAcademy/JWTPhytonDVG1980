@@ -98,6 +98,7 @@ def create_company():
     email = body.get('email', None)
     descripcion = body.get('descripcion', None)
     web = body.get('web', None)
+    contraseña = body.get('contraseña', None)
     certificado = body.get('certificado', None)
     
     if not all([nif, nombre, sector, direccion, email, descripcion, web]):
@@ -115,6 +116,7 @@ def create_company():
         email=email,
         descripcion=descripcion,
         web=web,
+        contraseña=contraseña,
         certificado=certificado
     )
     
@@ -139,6 +141,7 @@ def update_company(company_id):
     company.email = body.get('email', company.email)
     company.descripcion = body.get('descripcion', company.descripcion)
     company.web = body.get('web', company.web)
+    company.contraseña = body.get('contraseña', company.contraseña)
     company.certificado = body.get('certificado', company.certificado)
 
     db.session.commit()

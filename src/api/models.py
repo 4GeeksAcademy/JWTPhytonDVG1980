@@ -39,10 +39,11 @@ class Company(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     descripcion = db.Column(db.Text, nullable=False)
     web = db.Column(db.String(120), unique=True, nullable=False)
+    contraseña = db.Column(db.String(200), nullable=False)
     certificado = db.Column(db.String(120), nullable=True)
 
 
-    def __init__(self,nif,nombre,sector,direccion,email,descripcion,web,certificado):
+    def __init__(self,nif,nombre,sector,direccion,email,descripcion,web,contraseña,certificado):
         self.nif = nif
         self.nombre = nombre
         self.sector = sector
@@ -50,6 +51,7 @@ class Company(db.Model):
         self.email = email
         self.descripcion = descripcion
         self.web = web
+        self.contraseña = contraseña
         self.certificado = certificado
 
     def __repr__(self):
@@ -64,6 +66,7 @@ class Company(db.Model):
             "email": self.email,
             "descripcion": self.descripcion,
             "web": self.web,
+            "contraseña": self.contraseña,
             "certificado": self.certificado,
         }
     
