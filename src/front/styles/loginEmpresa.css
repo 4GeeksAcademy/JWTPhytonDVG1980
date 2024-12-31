@@ -10,7 +10,7 @@
     font-family: 'Rubik', sans-serif;
   }
   
-  .login-form {
+  .loginEmpresa-form {
     background: #fff;
     width: 500px;
     margin: 65px auto;
@@ -22,18 +22,22 @@
     border-radius: 4px;
     box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
   }
-  .login-form h1 {
+  .loginEmpresa-form h1 {
     padding: 35px 35px 0 35px;
     font-weight: 300;
+    font-weight: bold; 
+    font-style: italic; 
+    color: rgb(25, 135, 84); 
   }
-  .login-form .content {
+  .loginEmpresa-form .content{
     padding: 35px;
     text-align: center;
+    background-color: rgb(25, 135, 84); 
   }
-  .login-form .input-field {
+  .loginEmpresa-form .input-field {
     padding: 12px 5px;
   }
-  .login-form .input-field input {
+  .loginEmpresa-form .input-field input {
     font-size: 16px;
     display: block;
     font-family: 'Rubik', sans-serif;
@@ -45,25 +49,25 @@
     -webkit-transition: all .2s;
     transition: all .2s;
   }
-  .login-form .input-field input::-webkit-input-placeholder {
+  .loginEmpresa-form .input-field input::-webkit-input-placeholder {
     text-transform: uppercase;
   }
-  .login-form .input-field input::-moz-placeholder {
+  .loginEmpresa-form .input-field input::-moz-placeholder {
     text-transform: uppercase;
   }
-  .login-form .input-field input:-ms-input-placeholder {
+  .loginEmpresa-form .input-field input:-ms-input-placeholder {
     text-transform: uppercase;
   }
-  .login-form .input-field input::-ms-input-placeholder {
+  .loginEmpresa-form .input-field input::-ms-input-placeholder {
     text-transform: uppercase;
   }
-  .login-form .input-field input::placeholder {
+  .loginEmpresa-form .input-field input::placeholder {
     text-transform: uppercase;
   }
-  .login-form .input-field input:focus {
+  .loginEmpresa-form .input-field input:focus {
     border-color: #222;
   }
-  .login-form a.link {
+  .loginEmpresa-form a.link {
     text-decoration: none;
     color: #747474;
     letter-spacing: 0.2px;
@@ -72,14 +76,14 @@
     margin-top: 20px;
     
   }
-  .login-form .action {
+  .loginEmpresa-form .action {
     display: -webkit-box;
     display: flex;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
             flex-direction: row;
   }
-  .login-form .action button {
+  .loginEmpresa-form .action button {
     width: 100%;
     border: none;
     padding: 18px;
@@ -95,16 +99,16 @@
     -webkit-transition: all .3s;
     transition: all .3s;
   }
-  .login-form .action button:hover {
+  .loginEmpresa-form .action button:hover {
     background: #d8d8d8;
   }
   
-  .login-form .action .selected {
+  .loginEmpresa-form .action .selected {
     background: #2d3b55;
     color: #fff;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 4px;
   }
-  .login-form .action button:nth-child(2):hover {
+  .loginEmpresa-form .action button:nth-child(2):hover {
     background: #3c4d6d;
   }

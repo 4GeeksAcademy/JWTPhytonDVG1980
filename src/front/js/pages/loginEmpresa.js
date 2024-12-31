@@ -71,7 +71,7 @@ const Login = () => {
   };
 
   return (
-    <div className="login-form">
+    <div className="loginEmpresa-form">
       <section onSubmit={(e) => e.preventDefault()}>
         {!isShow ? <h1>Login Empresa</h1> : <h1>Registro Empresa</h1>}
         <div className="content">
@@ -186,7 +186,8 @@ const styles = {
     cursor: "pointer",
     fontSize: "14px",
   },
-};
+  };
+  
 
 export default Login;
 

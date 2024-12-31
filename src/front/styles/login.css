@@ -25,10 +25,14 @@
   .login-form h1 {
     padding: 35px 35px 0 35px;
     font-weight: 300;
+    font-weight: bold; 
+    font-style: italic; 
+    color: rgb(81, 82, 81);
   }
   .login-form .content {
     padding: 35px;
     text-align: center;
+    background-color: rgb(123, 126, 123); 
   }
   .login-form .input-field {
     padding: 12px 5px;

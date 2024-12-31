@@ -27,15 +27,15 @@ export const Navbar = () => {
         )}
         <div className="ml-auto">
           <Link to="/login">
-            <button className="btn btn-primary" onClick={handleClick}>
-              {store?.token ? "Logout" : "Login Usuario / Registro Usuario"}
+            <button className="btn btn-secondary" onClick={handleClick}>
+              {store?.token ? "Logout" : "Login / Registro (Usuario)"}
             </button>
           </Link>
         </div>
         <div className="ml-auto">
           <Link to="/loginEmpresa">
-            <button className="btn btn-primary" onClick={handleClick}>
-              {store?.token ? "Logout" : "Login Empresa / Registro Empresa"}
+            <button className="btn btn-success" onClick={handleClick}>
+              {store?.token ? "Logout" : "Login / Registro (Empresa)"}
             </button>
           </Link>
         </div>
