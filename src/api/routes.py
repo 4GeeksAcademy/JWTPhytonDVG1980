@@ -23,16 +23,17 @@ api = Blueprint('api', __name__)
 
 @api.route('/register', methods=['POST'])
 def register_user():
+    
     body = request.get_json()
-    nombre = body.get('nombre', None)
-    email = body.get('email', None)
-    contraseña = body.get('contraseña', None)
-    if nombre is None or email is None or contraseña is None:
+    user_nombre = body.get('nombre', None)
+    user_email = body.get('email', None)
+    user_contraseña = body.get('contraseña', None)
+    if user_nombre is None or user_email is None or user_contraseña is None:
         return {'message': 'Missing arguments'}      
-    bpassword = bytes(contraseña, 'utf-8')
+    bpassword = bytes(user_contraseña, 'utf-8')
     salt = bcrypt.gensalt(14)
     hashed_password = bcrypt.hashpw(password=bpassword, salt=salt)       
-    user = User(nombre, email, hashed_password.decode('utf-8'))    
+    user = User(user_nombre, user_email, hashed_password.decode('utf-8'))    
     #return {'message': f'nombre: {user.nombre} email: {user.email} contraseña: {contraseña}'}
     db.session.add(user)
     db.session.commit()
@@ -69,7 +70,7 @@ def validate_user():
     
 # **************************************COMPANY*******************************************
 
-@api.route('/companies', methods=['GET'])
+@api.route('/profile/companies', methods=['GET'])
 def get_companies():
     """Obtiene todas las compañías"""
     companies = Company.query.all()
@@ -77,7 +78,7 @@ def get_companies():
     return jsonify(companies_serialized), 200
 
 
-@api.route('/companies/<int:company_id>', methods=['GET'])
+@api.route('/profile/companies/<int:company_id>', methods=['GET'])
 def get_company(company_id):
     """Obtiene una compañía por ID"""
     company = Company.query.get(company_id)
@@ -86,7 +87,7 @@ def get_company(company_id):
     return jsonify(company.serialize()), 200
 
 
-@api.route('/companies', methods=['POST'])
+@api.route('/profile/companies', methods=['POST'])
 def create_company():
     """Crea una nueva compañía"""
     body = request.get_json()
@@ -125,7 +126,7 @@ def create_company():
     return jsonify(company.serialize()), 201
 
 
-@api.route('/companies/<int:company_id>', methods=['PUT'])
+@api.route('/profile/companies/<int:company_id>', methods=['PUT'])
 def update_company(company_id):
     """Actualiza los datos de una compañía existente"""
     body = request.get_json()
@@ -148,7 +149,7 @@ def update_company(company_id):
     return jsonify(company.serialize()), 200
 
 
-@api.route('/companies/<int:company_id>', methods=['DELETE'])
+@api.route('/profile/companies/<int:company_id>', methods=['DELETE'])
 def delete_company(company_id):
     """Elimina una compañía por ID"""
     company = Company.query.get(company_id)

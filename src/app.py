@@ -21,7 +21,7 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 
-app.config["JWT_SECRET_KEY"] = "L@t@m-21"  # Change this!
+app.config["JWT_SECRET_KEY"] = "Diego-Vega"#"L@t@m-21"  # Change this!
 jwt = JWTManager(app)
 
 # database condiguration
